@@ -53,11 +53,15 @@ import Charts from './Charts'
             }));
 
 let total_orders_amount = 0
-let output = [];
+let obj = {}
 for(let i = 0; i < jsondata.length ; i++){
-    output.push([jsondata[i].Name , jsondata[i].Phone])
+    if(!obj.hasOwnProperty(jsondata[i].Name)){
+        obj[jsondata[i].Name] = jsondata[i].Phone
+    }
     total_orders_amount += jsondata[i].Amount
 }
+let output = Object.entries(obj)
+
 
 let bar_graph =[]
 bar_graph.push(['Months', 'No. of Orders','Total Amount in Hundred [ Ex : 3 =>(3 * 100)=> Rs.300/- ]']) //jsondata[i].Date.slice(5,7) == 4
@@ -94,7 +98,6 @@ for(let i=0;i<jsondata.length;i++)
         cust_count_list[jsondata[i].Name]=1
     }
 }
-  
 let one =0  ,two =0,three =0,four =0, abovefive = 0 , ordered_1time = []
 for(let x in cust_count_list){
     switch(Number(cust_count_list[x])){
